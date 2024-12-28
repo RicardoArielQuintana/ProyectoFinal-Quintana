@@ -1,161 +1,51 @@
-const Almacen = [
-    {
-        id: 1,
-        producto: "Gorra",
-        cantidad: 50
-    },
-    {
-        id: 2,
-        producto: "Pantalon",
-        cantidad: 20
-    },
-    {
-        id: 3,
-        producto: "Remera",
-        cantidad: 30
-    }
-]
 
-    //instanciado de Almacen
-    class ProductoClase {
-        constructor(id, producto, cantidad) {
-            this.id = id;
-            this.producto = producto;
-            this.cantidad = cantidad;
-        }
-    }
+const Productos = document.getElementById("productos")
 
-    const ArrayDeProductos = Almacen.map(el => new ProductoClase(el.id, el.producto, el.cantidad));
-    console.log(ArrayDeProductos);
+console.log("Productos. " + Productos)
 
-// Objeto carrito de compras
+const crearTarjetas = (arrayDeProductos) => {
+    Productos.innerHTML = ""
+    arrayDeProductos.forEach(el => {
+        const articleContainer = document.createElement("article")
+        articleContainer.classList.add("filaProductosFlex")
 
-const Carrito = [
-    {
-        id: 1,
-        producto: "Gorra",
-        cantidad: 1
-    },
-    {
-        id: 3,
-        producto: "Remera",
-        cantidad: 1
-    }
-]
+        const divContainer = document.createElement("div")
+        divContainer.classList.add("contenedorProductos")
+        const imagen = document.createElement("img")
+        const titulo = document.createElement("h3")
+        const descripcion = document.createElement("p")
+        const precio = document.createElement("h4")
+        const botonComprar = document.createElement("button")
 
+        articleContainer.appendChild(divContainer)
+        divContainer.append(imagen, titulo, descripcion, precio, botonComprar)
 
-// Agregar articulos al carrito de compras
+        titulo.innerText = el.producto
+        descripcion.innerText = el.descripcion
+        precio.innerText = "$ " + el.precio
 
-function agregarAlCarrito(idPedido, cantidadPedido) {
+        botonComprar.innerText = "Comprar"
 
-    Carrito.push({
-        id: idPedido,
-        producto: "agregado por el usuario",
-        cantidad: cantidadPedido
-    });
-}
+        console.log("pasando..")
 
+        articleContainer.append(divContainer, imagen, titulo, descripcion, precio, botonComprar)
+        Productos.appendChild(articleContainer)
 
-// Validar existencias
-
-
-
-function validarAlmacen(idPedido, cantidadPedido) {
-
-    let idP = idPedido;
-    let idC = cantidadPedido;
-
-    for (let i = 0; i < Almacen.length; i++) {
-        const articulo = Almacen[i];
-        if (idP == articulo.id) {
-
-            if (idC < articulo.cantidad) {
-                alert("Contamos con existencias suficientes para su compra");
-                console.log("El id del articulo es:" + idP);
-                console.log("La cantidad de unidades es :" + idC);
-                console.log(articulo);
-                return (true);
-            } else {
-                alert("No contamos con existencias suficientes para su compra, por favor seleccione otro articulo");
-                console.log("El id del articulo es:" + idP);
-                console.log("La cantidad de unidades es :" + idC);
-                console.log(articulo);
-            }
-        }
-        else {
-            console.log("siguiente articulo")
-        }
-    }
-}
-
-
-
-
-// Mostrar carrito de compras
-
-function verCarritoDeCompras() {
-    let articulos = "\n";
-    for (let i = 0; i < Carrito.length; i++) {
-        const articulo = Carrito[i];
-        articulos = articulos + "Producto: " + articulo.producto + ", Cantidad: " + articulo.cantidad + "\n";
-    }
-    alert("Los productos de su carrito de compra son: " + articulos);
-}
-
-
-//Selección de método de pago
-
-function MetodoPago() {
-    let okMetodo;
-    do {
-        let comoPago = Number(prompt('Ingrese método de pago para esta operacion \n 1- Efectivo en locales \n 2- Tarjeta de crédito \n 3- Tarjeta de debito'));
-        console.log(comoPago);
-        switch (comoPago) {
-            case 1:
-                okMetodo = confirm('Ud ha seleccionado pagar con: Efectivo en locales');
-                break;
-            case 2:
-                okMetodo = confirm('Ud ha seleccionado pagar con: Tarjeta de crédito');
-                break;
-            case 3:
-                okMetodo = confirm('Ud ha seleccionado pagar con: Tarjeta de debito');
-                break;
-            default:
-                prompt('El método de pago seleccionado no está disponible');
-        }
-    } while (!okMetodo);
-    return (okMetodo);
-}
-
-function core() {
-
-
-    let idPedido = Number(prompt('Seleccione el producto que quiere comprar: \n 1 - Gorra \n 2 - Pantalon \n 3 - Remera'));
-    let cantidadPedido = Number(prompt('Indique la cantidad de unidades que desea comprar'));
-
-
-
-
-    let bandera = true;
-
-   // while (bandera) {
-        let validador = validarAlmacen(idPedido, cantidadPedido);
-        console.log(validador);
-
-        if (validador) {
-            agregarAlCarrito(idPedido, cantidadPedido);
-        }
-
-        verCarritoDeCompras();
-
-        let ok = MetodoPago();
-        console.log(ok);
-  //  }
-
+    })
 
 }
 
-core()
+const llamarData = async () => {
+    const response = await fetch("./data.json")
+    const arrayProductos = await response.json()
 
+    console.log(arrayProductos)
+    return arrayProductos
+}
 
+document.addEventListener("DOMContentLoaded", async () => {
+    const arrayData = await llamarData()
+    //   crearTarjetas(arrayData)
+    console.log(arrayData)
 
+})

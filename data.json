@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "producto": "Gorra",
+        "descripcion": "Gorra visera",
+        "cantidad": 50,
+        "precio": 10
+    },
+    {
+        "id": 2,
+        "producto": "Pantalon",
+        "descripcion": "Pantalon cargo",
+        "cantidad": 20,
+        "precio": 100
+    },
+    {
+        "id": 3,
+        "producto": "Remera",
+        "descripcion": "Remera corta sublimada",
+        "cantidad": 30,
+        "precio": 80
+    }
+]
