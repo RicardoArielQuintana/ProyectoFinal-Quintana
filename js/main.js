@@ -1,12 +1,14 @@
 
 const Productos = document.getElementById("productos")
 
-console.log("Productos. " + Productos)
+if (Productos) { Productos.innerHTML = 'Contenido'; } else { console.error('El elemento no existe en el DOM'); }
+
 
 const crearTarjetas = (arrayDeProductos) => {
     Productos.innerHTML = ""
     arrayDeProductos.forEach(el => {
         const articleContainer = document.createElement("article")
+        
         articleContainer.classList.add("filaProductosFlex")
 
         const divContainer = document.createElement("div")
@@ -17,8 +19,6 @@ const crearTarjetas = (arrayDeProductos) => {
         const precio = document.createElement("h4")
         const botonComprar = document.createElement("button")
 
-        articleContainer.appendChild(divContainer)
-        divContainer.append(imagen, titulo, descripcion, precio, botonComprar)
 
         titulo.innerText = el.producto
         descripcion.innerText = el.descripcion
@@ -28,7 +28,9 @@ const crearTarjetas = (arrayDeProductos) => {
 
         console.log("pasando..")
 
-        articleContainer.append(divContainer, imagen, titulo, descripcion, precio, botonComprar)
+        //articleContainer.append(divContainer, imagen, titulo, descripcion, precio, botonComprar)
+        articleContainer.appendChild(divContainer)
+        divContainer.append(imagen, titulo, descripcion, precio, botonComprar)
         Productos.appendChild(articleContainer)
 
     })
@@ -39,13 +41,13 @@ const llamarData = async () => {
     const response = await fetch("./data.json")
     const arrayProductos = await response.json()
 
-    console.log(arrayProductos)
+    console.log (arrayProductos)
     return arrayProductos
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const arrayData = await llamarData()
-    //   crearTarjetas(arrayData)
-    console.log(arrayData)
-
+    console.log (arrayData)
+    crearTarjetas (arrayData)
 })
+
