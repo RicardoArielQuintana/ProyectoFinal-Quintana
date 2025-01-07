@@ -3,6 +3,7 @@
         "id": 1,
         "producto": "Gorra",
         "descripcion": "Gorra visera",
+        "imagen": "https://th.bing.com/th/id/OIP.Vu1w17Ue4zr-V9p5R7vTEwHaHa?rs=1&pid=ImgDetMain",
         "cantidad": 50,
         "precio": 10
     },
@@ -10,6 +11,7 @@
         "id": 2,
         "producto": "Pantalon",
         "descripcion": "Pantalon cargo",
+        "imagen": "https://i.pinimg.com/originals/13/41/3c/13413cf16bdcd5d0b5544d95a1291f28.jpg",
         "cantidad": 20,
         "precio": 100
     },
@@ -17,6 +19,7 @@
         "id": 3,
         "producto": "Remera",
         "descripcion": "Remera corta sublimada",
+        "imagen":"https://d26lpennugtm8s.cloudfront.net/stores/533/589/products/diseno-sin-titulo81-daa6f09e172fe494c015751299340641-640-0.jpg",
         "cantidad": 30,
         "precio": 80
     }

@@ -8,27 +8,29 @@ const crearTarjetas = (arrayDeProductos) => {
     Productos.innerHTML = ""
     arrayDeProductos.forEach(el => {
         const articleContainer = document.createElement("article")
-        
         articleContainer.classList.add("filaProductosFlex")
 
         const divContainer = document.createElement("div")
         divContainer.classList.add("contenedorProductos")
+
         const imagen = document.createElement("img")
+        imagen.setAttribute("src", el.image)
+        imagen.setAttribute("height", 200)
+
         const titulo = document.createElement("h3")
         const descripcion = document.createElement("p")
         const precio = document.createElement("h4")
         const botonComprar = document.createElement("button")
 
 
-        titulo.innerText = el.producto
-        descripcion.innerText = el.descripcion
-        precio.innerText = "$ " + el.precio
+        titulo.innerText = el.title
+        descripcion.innerText = el.description
+        precio.innerText = "$ " + el.price
 
         botonComprar.innerText = "Comprar"
 
         console.log("pasando..")
 
-        //articleContainer.append(divContainer, imagen, titulo, descripcion, precio, botonComprar)
         articleContainer.appendChild(divContainer)
         divContainer.append(imagen, titulo, descripcion, precio, botonComprar)
         Productos.appendChild(articleContainer)
@@ -36,7 +38,7 @@ const crearTarjetas = (arrayDeProductos) => {
     })
 
 }
-
+/*
 const llamarData = async () => {
     const response = await fetch("./data.json")
     const arrayProductos = await response.json()
@@ -44,10 +46,27 @@ const llamarData = async () => {
     console.log (arrayProductos)
     return arrayProductos
 }
+*/
+
+
+
+const apiUrl='https://fakestoreapi.com/products';
+
+const llamarData = async function obtenerProductos() {
+    try{
+        const response = await fetch (apiUrl);
+        const prod = await response.json();
+        console.log(prod);
+        return (prod);
+
+    } catch(error){
+        console.log(error);
+    }
+    
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     const arrayData = await llamarData()
     console.log (arrayData)
     crearTarjetas (arrayData)
 })
-
